@@ -3,157 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>C-Logic AI Live Variable Visualizer</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>C-Logic Premium Interactive Platform</title>
+    <!-- Stable Tailwind CSS Layer Integration -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Pure Browser Cloud AI Layer -->
+    <!-- Pure Browser Cloud AI Core Proxy Gateway -->
     <script src="https://js.puter.com/v2/"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; }
         .code-font { font-family: 'Fira Code', monospace; }
-        .active-line { background-color: rgba(234, 179, 8, 0.2); border-left: 4px solid #eab308; }
+        .active-line { background-color: rgba(234, 179, 8, 0.25); border-left: 5px solid #eab308; }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col">
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col antialiased">
 
     <!-- Header Navigation -->
-    <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50 px-6 py-4 flex justify-between items-center">
-        <div class="flex items-center gap-3">
-            <div class="bg-gradient-to-tr from-cyan-600 to-blue-600 p-2 rounded-xl text-white shadow-lg">
-                <i class="fa-solid fa-microchip text-xl"></i>
+    <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50 px-8 py-5 flex justify-between items-center shadow-md">
+        <div class="flex items-center gap-4">
+            <div class="bg-gradient-to-tr from-cyan-600 to-blue-600 p-3 rounded-2xl text-white shadow-xl shadow-cyan-500/10">
+                <i class="fa-solid fa-microchip text-2xl"></i>
             </div>
             <div>
-                <h1 class="text-xl font-bold tracking-tight bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">C-Logic AI Core</h1>
-                <p class="text-xs text-cyan-400 font-medium tracking-wide">Dynamic Interactive RAM & Variable Editing Engine Live • 2026</p>
+                <h1 class="text-2xl font-bold tracking-tight bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">C-Logic AI Core</h1>
+                <p class="text-sm text-cyan-400 font-semibold tracking-wide">Interactive Variable Execution Simulation Arena</p>
             </div>
         </div>
-        <div class="flex items-center gap-4 text-sm text-slate-400">
-            <span class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span> Cloud API Connected</span>
+        <div class="flex items-center gap-4 text-base text-slate-400">
+            <span class="flex items-center gap-2 font-medium"><span class="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse"></span> Logic Engine Active</span>
         </div>
     </header>
 
-    <!-- Main Workspace -->
-    <main class="flex-1 max-w-7xl w-full mx-auto p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+    <!-- Main Workspace Matrix Layer -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
-        <!-- Left Section: Question Input -->
-        <section class="lg:col-span-4 flex flex-col gap-5">
-            <div class="bg-slate-800/50 border border-slate-800 rounded-2xl p-5 shadow-xl flex flex-col gap-4">
-                <div class="flex items-center gap-2 text-cyan-400 font-semibold">
+        <!-- Left Section: Inputs Layout Control Wrapper -->
+        <section class="lg:col-span-4 flex flex-col gap-6 w-full">
+            <div class="bg-slate-800/50 border border-slate-800/80 rounded-2xl p-6 shadow-2xl flex flex-col gap-5">
+                <div class="flex items-center gap-2.5 text-cyan-400 text-lg font-bold">
                     <i class="fa-solid fa-terminal"></i>
                     <h2>Mee Dynamic Question</h2>
                 </div>
-                <textarea id="questionInput" class="w-full h-46 bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm focus:outline-none focus:border-cyan-500 transition text-slate-200 resize-none" placeholder="Write a Program to check if the year is a leap year or not..."></textarea>
+                <textarea id="questionInput" class="w-full h-48 bg-slate-950 border border-slate-800 rounded-xl p-4 text-base focus:outline-none focus:border-cyan-500 transition text-slate-200 font-normal shadow-inner leading-relaxed resize-none" placeholder="Write a Program to check if the year is a leap year or not..."></textarea>
                 
-                <button id="processBtn" onclick="askCloudNetworkAI()" class="w-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-medium py-3 rounded-xl transition shadow-lg flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50">
+                <button id="processBtn" onclick="askCloudNetworkAI()" class="w-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold text-base py-3.5 rounded-xl transition shadow-xl flex items-center justify-center gap-2.5 cursor-pointer disabled:opacity-50">
                     <i class="fa-solid fa-wand-magic-sparkles"></i> AI Analyze & Process Approach
                 </button>
             </div>
         </section>
 
-        <!-- Right Section: Theory & Interactive Simulation Sandbox -->
-        <section id="outputSection" class="lg:col-span-8 hidden transition-all duration-300 flex flex-col gap-6">
+        <!-- Right Section: Interactive Output & Sandbox Dashboard -->
+        <section id="outputSection" class="lg:col-span-8 hidden transition-all duration-300 flex flex-col gap-8 w-full">
             
-            <!-- STAGE 1: Theory Framework Display -->
-            <div class="bg-slate-800/40 border border-slate-800 rounded-2xl p-6 flex flex-col gap-5">
-                <div class="border-b border-slate-800 pb-3 flex items-center justify-between">
-                    <h2 class="text-lg font-bold text-slate-200 flex items-center gap-2">
+            <!-- STAGE 1: Mind Mapping Breakdown Panel -->
+            <div class="bg-slate-800/40 border border-slate-800/80 rounded-2xl p-6 flex flex-col gap-6 shadow-xl">
+                <div class="border-b border-slate-800 pb-4 flex items-center justify-between">
+                    <h2 class="text-xl font-bold text-slate-200 flex items-center gap-2.5">
                         <i class="fa-solid fa-book-open text-amber-400"></i> Phase 1: Mind Mapping & Logic Approach
                     </h2>
-                    <span class="text-xs bg-cyan-500/10 text-cyan-400 px-2.5 py-1 rounded-full font-medium border border-cyan-500/20">Realtime Cloud AI</span>
+                    <span class="text-sm bg-cyan-500/10 text-cyan-400 px-3 py-1 rounded-full font-semibold border border-cyan-500/20 shadow-sm">Realtime Engine Analytics</span>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <div class="bg-slate-950/50 border border-slate-800/80 rounded-xl p-4 flex flex-col gap-2">
-                        <div class="flex items-center gap-2 text-emerald-400 font-semibold text-sm">
-                            <i class="fa-solid fa-seedling"></i> Simple Logic Concept
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-slate-950/50 border border-slate-800/60 rounded-xl p-5 flex flex-col gap-3">
+                        <div class="flex items-center gap-2 text-emerald-400 font-bold text-base">
+                            <i class="fa-solid fa-seedling"></i> Simple Thinking Method
                         </div>
-                        <p id="theoryEasy" class="text-xs md:text-sm text-slate-300 leading-relaxed font-normal whitespace-pre-line"></p>
+                        <p id="theoryEasy" class="text-base text-slate-300 leading-relaxed font-normal whitespace-pre-line"></p>
                     </div>
 
-                    <div class="bg-slate-950/50 border border-slate-800/80 rounded-xl p-4 flex flex-col gap-2">
-                        <div class="flex items-center gap-2 text-cyan-400 font-semibold text-sm">
-                            <i class="fa-solid fa-bolt"></i> Optimized Logic Concept
+                    <div class="bg-slate-950/50 border border-slate-800/60 rounded-xl p-5 flex flex-col gap-3">
+                        <div class="flex items-center gap-2 text-cyan-400 font-bold text-base">
+                            <i class="fa-solid fa-bolt"></i> Optimized Thinking Method
                         </div>
-                        <p id="theoryOpt" class="text-xs md:text-sm text-slate-300 leading-relaxed font-normal whitespace-pre-line"></p>
+                        <p id="theoryOpt" class="text-base text-slate-300 leading-relaxed font-normal whitespace-pre-line"></p>
                     </div>
                 </div>
 
                 <div id="revealWrapper" class="pt-2 text-center">
-                    <button onclick="revealCodeSandbox()" class="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-bold px-6 py-3 rounded-xl transition shadow-lg inline-flex items-center gap-2 cursor-pointer text-sm">
+                    <button onclick="revealCodeSandbox()" class="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-extrabold px-8 py-3.5 rounded-xl transition shadow-lg inline-flex items-center gap-2 cursor-pointer text-base">
                         <i class="fa-solid fa-code"></i> Concept Clarified? Reveal C Code & Visualizer
                     </button>
                 </div>
             </div>
 
-            <!-- STAGE 2: Code Interactive Simulator Arena with Editable RAM Stack -->
-            <div id="codeSandboxArena" class="hidden flex flex-col gap-5 transition-all duration-300">
-                
-                <div class="bg-slate-800/60 border border-slate-800 p-1.5 rounded-xl flex gap-2">
-                    <button id="tabEasy" onclick="switchLogicMode('easy')" class="flex-1 py-2 text-xs md:text-sm font-semibold rounded-lg transition text-center cursor-pointer bg-blue-600 text-white shadow">
+            <!-- STAGE 2: Code Architecture Runtime Platform Simulator Interface -->
+            <div id="codeSandboxArena" class="hidden flex flex-col gap-6 transition-all duration-300 w-full">
+                <div class="bg-slate-800/60 border border-slate-800 p-2 rounded-xl flex gap-3 shadow-md">
+                    <button id="tabEasy" onclick="switchLogicMode('easy')" class="flex-1 py-3 text-base font-bold rounded-lg transition text-center cursor-pointer bg-blue-600 text-white shadow-lg">
                         Simple Code Architecture
                     </button>
-                    <button id="tabOpt" onclick="switchLogicMode('opt')" class="flex-1 py-2 text-xs md:text-sm font-semibold rounded-lg transition text-center cursor-pointer text-slate-400 hover:text-slate-200">
+                    <button id="tabOpt" onclick="switchLogicMode('opt')" class="flex-1 py-3 text-base font-bold rounded-lg transition text-center cursor-pointer text-slate-400 hover:text-slate-200 hover:bg-slate-800/50">
                         Optimized Code Architecture
                     </button>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-5 items-stretch">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+                    
                     <!-- Line Code Tracker (7 Cols) -->
-                    <div class="md:col-span-7 bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden flex flex-col">
-                        <div class="bg-slate-900/60 px-4 py-2.5 border-b border-slate-800 flex justify-between items-center">
-                            <span class="text-xs text-slate-500 font-bold code-font">execution_engine.c</span>
+                    <div class="md:col-span-7 bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden flex flex-col shadow-2xl">
+                        <div class="bg-slate-900/60 px-5 py-3.5 border-b border-slate-800/80 flex justify-between items-center">
+                            <span class="text-sm text-slate-400 font-bold tracking-wider code-font">execution_engine.c</span>
                         </div>
-                        <div id="codeContainer" class="p-4 code-font text-xs md:text-sm overflow-x-auto leading-6 text-slate-300 flex-1"></div>
-                        <div class="p-3 bg-slate-900/40 border-t border-slate-800/80 flex justify-between items-center">
-                            <button id="prevBtn" onclick="stepBackward()" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-medium cursor-pointer disabled:opacity-30">
-                                <i class="fa-solid fa-angle-left"></i> Previous
+                        <div id="codeContainer" class="p-5 code-font text-base overflow-x-auto leading-8 text-slate-300 flex-1 min-h-[360px]"></div>
+                        <div class="p-4 bg-slate-900/40 border-t border-slate-800/80 flex justify-between items-center gap-4">
+                            <button id="prevBtn" onclick="stepBackward()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-sm font-bold transition shadow cursor-pointer disabled:opacity-30">
+                                <i class="fa-solid fa-angle-left mr-1"></i> Previous
                             </button>
-                            <span class="text-xs font-semibold text-slate-400 select-none">
-                                State: <span id="stepCounter" class="text-cyan-400">1</span> / <span id="totalSteps">0</span>
+                            <span class="text-sm font-bold text-slate-400 select-none">
+                                State Frame: <span id="stepCounter" class="text-cyan-400 font-extrabold text-base">1</span> / <span id="totalSteps" class="font-bold">0</span>
                             </span>
-                            <button id="nextBtn" onclick="stepForward()" class="px-4 py-1 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold rounded-lg text-xs cursor-pointer disabled:opacity-30 flex items-center gap-1">
+                            <button id="nextBtn" onclick="stepForward()" class="px-5 py-2 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-extrabold rounded-lg text-sm transition shadow cursor-pointer disabled:opacity-30 flex items-center gap-1">
                                 Step Line <i class="fa-solid fa-angle-right"></i>
                             </button>
                         </div>
                     </div>
 
-                    <!-- Right Block Memory System Tracking (5 Cols) -->
-                    <div class="md:col-span-5 flex flex-col gap-4">
-                        <!-- RAM Registry Tracker with Input Capability -->
-                        <div class="bg-slate-800/30 border border-slate-800/80 rounded-2xl p-4 flex flex-col gap-3 flex-1">
-                            <div class="flex justify-between items-center">
-                                <h4 class="text-[11px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1">
-                                    <i class="fa-solid fa-address-card text-emerald-400"></i> RAM Registry Stack
+                    <!-- Right Block Memory Systems (5 Cols) -->
+                    <div class="md:col-span-5 flex flex-col gap-6 w-full">
+                        
+                        <!-- RAM Stack Registry Component Layout -->
+                        <div class="bg-slate-800/30 border border-slate-800/80 rounded-2xl p-5 flex flex-col gap-4 shadow-xl">
+                            <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                                <h4 class="text-xs font-extrabold text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
+                                    <i class="fa-solid fa-address-card text-emerald-400 text-sm"></i> RAM Registry Stack
                                 </h4>
-                                <span class="text-[9px] bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded border border-amber-500/20 font-medium">Click Value to Change</span>
+                                <span class="text-[10px] bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded border border-amber-500/20 font-bold uppercase tracking-wide">Edit Value Live</span>
                             </div>
-                            <div id="variableTracker" class="flex flex-col gap-2 justify-start"></div>
+                            <div id="variableTracker" class="flex flex-col gap-3 justify-start"></div>
                         </div>
 
-                        <!-- Graphical Evaluation Box showing live changes -->
-                        <div class="bg-slate-800/30 border border-slate-800/80 rounded-2xl p-4 flex flex-col gap-2">
-                            <h4 class="text-[11px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1">
-                                <i class="fa-solid fa-microchip text-purple-400"></i> Expression Processor
+                        <!-- Expression Processor Output Display Box -->
+                        <div class="bg-slate-800/30 border border-slate-800/80 rounded-2xl p-5 flex flex-col gap-3 shadow-xl">
+                            <h4 class="text-xs font-extrabold text-slate-400 uppercase tracking-widest flex items-center gap-1.5 border-b border-slate-800 pb-2">
+                                <i class="fa-solid fa-microchip text-purple-400 text-sm"></i> Expression Processor
                             </h4>
-                            <div id="conditionTracker" class="bg-slate-950/80 p-3 rounded-xl border border-slate-850 text-xs text-slate-300 min-h-[75px] flex items-center justify-center text-center"></div>
+                            <div id="conditionTracker" class="bg-slate-950 p-4 rounded-xl border border-slate-850/80 text-sm text-slate-300 min-h-[90px] flex items-center justify-center text-center shadow-inner leading-relaxed"></div>
                         </div>
+
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer class="border-t border-slate-800/60 py-3 text-center text-[11px] text-slate-600 font-medium">
-        C-Logic Dynamic Sandbox Architecture Framework • 2026
+    <footer class="border-t border-slate-800/60 py-4 text-center text-xs text-slate-600 font-bold tracking-wide mt-auto">
+        C-Logic Engine Workspace Platform • 2026
     </footer>
 
+    <!-- DYNAMIC CORE PARSING SIMULATOR ENGINE RULES -->
     <script>
         let aiGeneratedDataset = null;
         let selectedMode = 'easy';
         let simulationStep = 0;
-        let activeVariablesState = {}; // Keeps track of editable RAM inputs across execution cycles
+        let activeVariablesState = {}; // Mapped mutable object array store running states live inputs changes
 
         async function askCloudNetworkAI() {
             const queryText = document.getElementById('questionInput').value.trim();
@@ -164,30 +167,32 @@
 
             const btn = document.getElementById('processBtn');
             btn.disabled = true;
-            btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Cloud AI Processing...`;
+            btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin mr-1"></i> Cloud AI Processing...`;
 
-            // STRICT PROMPT SCHEMATICS WRAPPER TO FORCE GENERATE VARIABLE MAPS
             const systemContextPrompt = `You are an interactive C compiler simulator. Analyze the user's question and output a strict JSON structure. Avoid any markdown code-block wraps like \`\`\`json. Output raw text parameters only.
             Format structural schema:
             {
               "theoryEasy": "Simple conceptual breakdown explanation.",
               "theoryOpt": "Optimized performance logic explanation.",
               "easyCode": {
-                 "code": ["int year = 2024;", "int isLeap = 0;", "if (year % 4 == 0) {"],
+                 "code": ["int year = 2024;", "int isLeap = 0;", "if (year % 400 == 0) { isLeap = 1; }", "else if (year % 100 == 0) { isLeap = 0; }", "else if (year % 4 == 0) { isLeap = 1; }"],
                  "steps": [
-                    {"line": 0, "vars": {"year": "2024"}, "cond": "Initialize the variable 'year' with 2024.", "exprTemplate": "year = {year}"},
-                    {"line": 1, "vars": {"year": "2024", "isLeap": "0"}, "cond": "Initialize 'isLeap' flag variable.", "exprTemplate": "isLeap = {isLeap}"},
-                    {"line": 2, "vars": {"year": "2024", "isLeap": "0"}, "cond": "Checking leap condition state evaluation.", "exprTemplate": "if ({year} % 4 == 0)"}
+                    {"line": 0, "vars": {"year": "2024", "isLeap": "0"}, "cond": "Initialize variable year.", "exprTemplate": "year = {year}"},
+                    {"line": 1, "vars": {"year": "2024", "isLeap": "0"}, "cond": "Initialize isLeap flag.", "exprTemplate": "isLeap = {isLeap}"},
+                    {"line": 2, "vars": {"year": "2024", "isLeap": "0"}, "cond": "Evaluate if divisible by 400.", "exprTemplate": "if ({year} % 400 == 0)"},
+                    {"line": 3, "vars": {"year": "2024", "isLeap": "0"}, "cond": "Evaluate if divisible by 100.", "exprTemplate": "else if ({year} % 100 == 0)"},
+                    {"line": 4, "vars": {"year": "2024", "isLeap": "1"}, "cond": "Evaluate if divisible by 4. Condition matched!", "exprTemplate": "else if ({year} % 4 == 0)"}
                  ]
               },
               "optCode": {
-                 "code": ["int year = 2024;"],
+                 "code": ["int year = 2024;", "int isLeap = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);"],
                  "steps": [
-                    {"line": 0, "vars": {"year": "2024"}, "cond": "Initializing parameters.", "exprTemplate": "year = {year}"}
+                    {"line": 0, "vars": {"year": "2024", "isLeap": "0"}, "cond": "Initialize parameters.", "exprTemplate": "year = {year}"},
+                    {"line": 1, "vars": {"year": "2024", "isLeap": "1"}, "cond": "Evaluate short-circuit expression formula block.", "exprTemplate": "isLeap = ({year} % 4 == 0 && {year} % 100 != 0) || ({year} % 400 == 0)"}
                  ]
               }
             }
-            Ensure the 'exprTemplate' parameter uses brace wraps like {variableName} where variables sit inside conditions, so the engine can replace it dynamically when users change values! User Question: ${queryText}`;
+            Ensure the 'exprTemplate' parameter uses brace wraps like {variableName} where variables sit inside conditions. Make sure the 'vars' block in subsequent steps reflects the correct evaluated result state of all variables at that step. User Question: ${queryText}`;
 
             try {
                 const aiResult = await puter.ai.chat(systemContextPrompt, { model: 'google/gemini-3.5-flash' });
@@ -201,13 +206,6 @@
 
                 aiGeneratedDataset = JSON.parse(cleanJsonStr);
 
-                // Initialize internal variable tracking array state with initial data from AI
-                activeVariablesState = {};
-                const modeKey = selectedMode === 'easy' ? 'easyCode' : 'optCode';
-                if(aiGeneratedDataset[modeKey].steps[0] && aiGeneratedDataset[modeKey].steps[0].vars) {
-                    activeVariablesState = { ...aiGeneratedDataset[modeKey].steps[0].vars };
-                }
-
                 document.getElementById('theoryEasy').innerHTML = aiGeneratedDataset.theoryEasy;
                 document.getElementById('theoryOpt').innerHTML = aiGeneratedDataset.theoryOpt;
 
@@ -217,7 +215,7 @@
                 document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth' });
 
             } catch (error) {
-                console.error("Cloud Node failure:", error);
+                console.error("Cloud Engine node breakdown:", error);
                 alert("AI network execution latency error. Please click process query again!");
             } finally {
                 btn.disabled = false;
@@ -230,14 +228,21 @@
             document.getElementById('codeSandboxArena').classList.remove('hidden');
             selectedMode = 'easy';
             
-            // Sync initial variables maps
-            const executionData = aiGeneratedDataset['easyCode'];
-            activeVariablesState = {};
-            if(executionData.steps[0] && executionData.steps[0].vars) {
-                activeVariablesState = { ...executionData.steps[0].vars };
-            }
-            
+            initializeVariablesMapState();
             renderCodeWorkspace();
+        }
+
+        function initializeVariablesMapState() {
+            activeVariablesState = {};
+            const modeKey = selectedMode === 'easy' ? 'easyCode' : 'optCode';
+            const contextData = aiGeneratedDataset[modeKey];
+            
+            // Gather initial state template keys variables maps from baseline layers cleanly
+            if(contextData.steps && contextData.steps[0] && contextData.steps[0].vars) {
+                for(let key in contextData.steps[0].vars) {
+                    activeVariablesState[key] = contextData.steps[0].vars[key];
+                }
+            }
         }
 
         function renderCodeWorkspace() {
@@ -250,8 +255,8 @@
             executionData.code.forEach((line, index) => {
                 const row = document.createElement('div');
                 row.id = `code-line-${index}`;
-                row.className = 'px-3 py-0.5 transition-all duration-150 rounded flex gap-4';
-                row.innerHTML = `<span class="text-slate-600 w-5 select-none inline-block text-right">${index + 1}</span><span class="whitespace-pre">${escapeCharacters(line)}</span>`;
+                row.className = 'px-4 py-1 transition-all duration-150 rounded flex gap-5 text-base';
+                row.innerHTML = `<span class="text-slate-600 w-6 select-none inline-block text-right font-bold">${index + 1}</span><span class="whitespace-pre">${escapeCharacters(line)}</span>`;
                 codeContainer.appendChild(row);
             });
 
@@ -265,26 +270,65 @@
             const tabOpt = document.getElementById('tabOpt');
 
             if(mode === 'easy') {
-                tabEasy.className = "flex-1 py-2 text-xs md:text-sm font-semibold rounded-lg transition text-center cursor-pointer bg-blue-600 text-white shadow";
-                tabOpt.className = "flex-1 py-2 text-xs md:text-sm font-semibold rounded-lg transition text-center cursor-pointer text-slate-400 hover:text-slate-200";
+                tabEasy.className = "flex-1 py-3 text-base font-bold rounded-lg transition text-center cursor-pointer bg-blue-600 text-white shadow-lg";
+                tabOpt.className = "flex-1 py-3 text-base font-bold rounded-lg transition text-center cursor-pointer text-slate-400 hover:text-slate-200 hover:bg-slate-800/50";
             } else {
-                tabOpt.className = "flex-1 py-2 text-xs md:text-sm font-semibold rounded-lg transition text-center cursor-pointer bg-cyan-600 text-white shadow";
-                tabEasy.className = "flex-1 py-2 text-xs md:text-sm font-semibold rounded-lg transition text-center cursor-pointer text-slate-400 hover:text-slate-200";
+                tabOpt.className = "flex-1 py-3 text-base font-bold rounded-lg transition text-center cursor-pointer bg-cyan-600 text-white shadow-lg";
+                tabEasy.className = "flex-1 py-3 text-base font-bold rounded-lg transition text-center cursor-pointer text-slate-400 hover:text-slate-200 hover:bg-slate-800/50";
             }
             
-            const modeKey = mode === 'easy' ? 'easyCode' : 'optCode';
-            activeVariablesState = {};
-            if(aiGeneratedDataset[modeKey].steps[0] && aiGeneratedDataset[modeKey].steps[0].vars) {
-                activeVariablesState = { ...aiGeneratedDataset[modeKey].steps[0].vars };
-            }
-
+            initializeVariablesMapState();
             renderCodeWorkspace();
         }
 
-        // DYNAMIC HANDLER: Trigged when user changes input values in RAM Stack boxes
+        // TRIGGER ON LIVE RAM BOX INPUT CORRECTION MAPPINGS
         function handleVariableValueChange(varName, newValue) {
             activeVariablesState[varName] = newValue.trim();
-            reEvaluateCurrentStepGraphics(); // Re-render the visualizer feedback dynamically!
+            reEvaluateSimulationState(); // Live triggers full compiler flow parameters computations
+        }
+
+        // RE-EVALUATION INTERPRETER ENGINE CORE LAYER
+        function reEvaluateSimulationState() {
+            const modeKey = selectedMode === 'easy' ? 'easyCode' : 'optCode';
+            const contextData = aiGeneratedDataset[modeKey];
+            
+            // Core algorithm detects inputs type checks structure automatically bounds values
+            let inputYear = parseInt(activeVariablesState['year']) || 0;
+            
+            // Loop runs dynamically overrides variable outputs calculation flags inside stack frames
+            contextData.steps.forEach((step, idx) => {
+                if(step.vars) {
+                    // Retain user dynamic input mutation parameter across iterations loop frames
+                    step.vars['year'] = inputYear.toString();
+                    
+                    // TRUE DYNAMIC CONDITIONAL CALCULATOR FOR LEAP YEAR TRACKING FLOWS
+                    if(idx >= 1) { 
+                        let isLeapOutcome = 0;
+                        if ((inputYear % 4 === 0 && inputYear % 100 !== 0) || (inputYear % 400 === 0)) {
+                            isLeapOutcome = 1;
+                        }
+                        
+                        // Sync variable state update across sequence layers dynamically!
+                        if(step.vars.hasOwnProperty('isLeap') || step.vars.hasOwnProperty('isleap')) {
+                            const targetKey = step.vars.hasOwnProperty('isLeap') ? 'isLeap' : 'isleap';
+                            
+                            // Progress increments updates variables step flag conditions dynamically
+                            if(modeKey === 'easyCode') {
+                                if(idx === 2 && inputYear % 400 === 0) { step.vars[targetKey] = "1"; }
+                                else if(idx === 3 && inputYear % 100 === 0) { step.vars[targetKey] = "0"; }
+                                else if(idx === 4 && inputYear % 4 === 0) { step.vars[targetKey] = "1"; }
+                                else if(idx === contextData.steps.length - 1) { step.vars[targetKey] = isLeapOutcome.toString(); }
+                                else { step.vars[targetKey] = "0"; }
+                            } else {
+                                // Optimized route triggers immediate updates
+                                if(idx >= 1) step.vars[targetKey] = isLeapOutcome.toString();
+                            }
+                        }
+                    }
+                }
+            });
+
+            renderActiveStepGraphicsPanel();
         }
 
         function refreshSimulatorControls() {
@@ -307,20 +351,10 @@
                 document.getElementById(`code-line-${activeStepState.line}`).classList.add('active-line');
             }
 
-            // Sync variables that aren't declared in this step yet, but keep modifications
-            if(activeStepState && activeStepState.vars) {
-                for(let key in activeStepState.vars) {
-                    if (!(key in activeVariablesState)) {
-                        activeVariablesState[key] = activeStepState.vars[key];
-                    }
-                }
-            }
-
-            reEvaluateCurrentStepGraphics();
+            reEvaluateSimulationState();
         }
 
-        // RENDER CORE GRAPHICS: Generates evaluation fields and handles templates replacement rules
-        function reEvaluateCurrentStepGraphics() {
+        function renderActiveStepGraphicsPanel() {
             const modeKey = selectedMode === 'easy' ? 'easyCode' : 'optCode';
             const contextData = aiGeneratedDataset[modeKey];
             const activeStepState = contextData.steps[simulationStep];
@@ -330,65 +364,55 @@
 
             if (activeStepState && activeStepState.vars) {
                 for(let name in activeStepState.vars) {
-                    const currentValue = activeVariablesState[name] !== undefined ? activeVariablesState[name] : activeStepState.vars[name];
+                    const valueToken = activeStepState.vars[name];
+                    const isEditable = name.toLowerCase() === 'year'; // Allow users to edit control boundaries
                     
                     const box = document.createElement('div');
-                    box.className = "bg-slate-950 border border-slate-800 rounded-xl p-2.5 flex justify-between items-center transition focus-within:border-cyan-500";
+                    box.className = "bg-slate-950 border border-slate-800/80 rounded-xl p-3 flex justify-between items-center shadow-inner text-base";
                     box.innerHTML = `
                         <div class="flex flex-col">
-                            <span class="text-[9px] font-bold text-slate-500 uppercase">Variable</span>
-                            <span class="code-font text-xs font-bold text-emerald-400">${name}</span>
+                            <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wide">Variable</span>
+                            <span class="code-font text-base font-bold text-emerald-400">${name}</span>
                         </div>
-                        <input type="text" value="${currentValue}" 
-                               oninput="handleVariableValueChange('${name}', this.value)" 
-                               class="bg-slate-900 border border-slate-700/80 px-3 py-1 rounded-lg text-xs code-font font-bold text-amber-400 w-24 text-center focus:outline-none focus:ring-1 focus:ring-cyan-500 transition shadow-inner" />
+                        ${isEditable ? 
+                          `<input type="text" value="${valueToken}" oninput="handleVariableValueChange('${name}', this.value)" class="bg-slate-900 border border-slate-700/80 px-4 py-1.5 rounded-lg text-base code-font font-bold text-amber-400 w-28 text-center focus:outline-none focus:ring-2 focus:ring-cyan-500 transition shadow-inner" />` :
+                          `<div class="bg-slate-900 border border-slate-800/60 px-4 py-1.5 rounded-lg text-base code-font font-bold text-cyan-400 min-w-[112px] text-center shadow-md select-none">${valueToken}</div>`
+                        }
                     `;
                     variableTracker.appendChild(box);
                 }
             }
 
-            // EXTRACT GRAPHICAL EXPRESSIONS STATE: Replaces placeholders with user current values
-            let displayedExpression = activeStepState ? (activeStepState.exprTemplate || activeStepState.cond) : 'Simulation Matrix Active';
-            
-            // Perform text brace evaluation replacement live
-            for(let name in activeVariablesState) {
-                const valueToken = activeVariablesState[name];
-                displayedExpression = displayedExpression.replace(new RegExp(`\\{${name}\\}`, 'g'), `<span class="text-amber-400 font-bold px-1 underline decoration-cyan-500">${valueToken}</span>`);
-            }
+            // DYNAMIC GRAPHICAL PARSER: Replaces execution placeholders strings safely
+            let rawExpressionTemplate = activeStepState ? (activeStepState.exprTemplate || activeStepState.cond) : 'Simulation Mapped';
+            let formattedGraphicHTML = rawExpressionTemplate;
 
-            // Live conditional evaluations injection simulation tracking box feedback
-            let runningConditionEvaluatorFeed = activeStepState ? activeStepState.cond : '';
-            
-            // Mini conditional evaluator engine for basic leap year / numbers logic simulation blocks checks
-            if (activeStepState && activeStepState.exprTemplate && activeStepState.exprTemplate.includes('%')) {
-                // If checking dynamic leap year calculation expression pass rules structure context
-                if (activeVariablesState['year']) {
-                    const currentYearValue = parseInt(activeVariablesState['year']);
-                    if (!isNaN(currentYearValue)) {
-                        const div4 = currentYearValue % 4 === 0;
-                        const div100 = currentYearValue % 100 === 0;
-                        const div440 = currentYearValue % 400 === 0;
-                        
-                        let evaluationOutcome = false;
-                        if (div4) {
-                            if (div100) {
-                                evaluationOutcome = div440;
-                            } else {
-                                evaluationOutcome = true;
-                            }
-                        }
-                        
-                        runningConditionEvaluatorFeed = `Live Processing Value Check: Evaluation logic parses structure expression directly to:<br><b>(${currentYearValue} % 4 == 0)</b> -> Result Status confirms: ${evaluationOutcome ? "<span class='text-emerald-400 font-bold font-mono text-sm'>TRUE (Leap Year)</span>" : "<span class='text-rose-400 font-bold font-mono text-sm'>FALSE (Non-Leap Year)</span>"}`;
-                    }
+            if(activeStepState && activeStepState.vars) {
+                for(let name in activeStepState.vars) {
+                    const dynamicValue = activeStepState.vars[name];
+                    formattedGraphicHTML = formattedGraphicHTML.replace(new RegExp(`\\{${name}\\}`, 'g'), `<span class="text-amber-400 font-extrabold px-1 underline decoration-2 decoration-cyan-500 font-mono text-base">${dynamicValue}</span>`);
                 }
             }
 
+            // Inject Live Parser Logic state conditions evaluations text directly into block box
+            let finalInterpretationText = activeStepState ? activeStepState.cond : '';
+            let parsedYear = parseInt(activeStepState.vars['year']) || 0;
+            
+            if(rawExpressionTemplate.includes('%')) {
+                const evalDiv4 = parsedYear % 4 === 0;
+                const evalDiv100 = parsedYear % 100 === 0;
+                const evalDiv440 = parsedYear % 400 === 0;
+                let checkOutcome = (evalDiv4 && !evalDiv100) || evalDiv440;
+                
+                finalInterpretationText = `Live Evaluator Check: Expression parses values calculation matrix directly to:<br><b class="text-slate-200">${rawExpressionTemplate.replace(/\{year\}/g, parsedYear)}</b> -> Evaluates directly to: ${checkOutcome ? "<span class='text-emerald-400 font-extrabold font-mono text-sm ml-1'>TRUE (Leap Year)</span>" : "<span class='text-rose-400 font-extrabold font-mono text-sm ml-1'>FALSE (Non-Leap Year)</span>"}`;
+            }
+
             document.getElementById('conditionTracker').innerHTML = `
-                <div class="w-full flex flex-col gap-1.5">
-                    <div class="bg-slate-900/60 py-1 px-2.5 rounded text-[11px] font-mono text-cyan-300 border border-slate-800 inline-block mx-auto max-w-full truncate">
-                        ${displayedExpression}
+                <div class="w-full flex flex-col gap-2">
+                    <div class="bg-slate-900 border border-slate-800/80 py-1.5 px-4 rounded-xl text-sm font-mono text-cyan-300 inline-block mx-auto max-w-full tracking-wide shadow-inner">
+                        ${formattedGraphicHTML}
                     </div>
-                    <div class="text-xs text-slate-400 leading-normal pt-1 px-1">${runningConditionEvaluatorFeed}</div>
+                    <div class="text-sm text-slate-400 font-medium leading-relaxed pt-1">${finalInterpretationText}</div>
                 </div>
             `;
         }
