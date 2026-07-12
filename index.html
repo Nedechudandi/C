@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>C-Logic Premium Interactive Platform</title>
+    <title>C-Logic True Iteration Simulator Platform</title>
     <!-- Stable Tailwind CSS Layer Integration -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -44,7 +44,7 @@
                     <i class="fa-solid fa-terminal"></i>
                     <h2>Mee Dynamic Question</h2>
                 </div>
-                <textarea id="questionInput" class="w-full h-48 bg-slate-950 border border-slate-800 rounded-xl p-4 text-base focus:outline-none focus:border-cyan-500 transition text-slate-200 font-normal shadow-inner leading-relaxed resize-none" placeholder="Write a Program to check if the year is a leap year or not..."></textarea>
+                <textarea id="questionInput" class="w-full h-48 bg-slate-950 border border-slate-800 rounded-xl p-4 text-base focus:outline-none focus:border-cyan-500 transition text-slate-200 font-normal shadow-inner leading-relaxed resize-none" placeholder="Type C language program question here..."></textarea>
                 
                 <button id="processBtn" onclick="askCloudNetworkAI()" class="w-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold text-base py-3.5 rounded-xl transition shadow-xl flex items-center justify-center gap-2.5 cursor-pointer disabled:opacity-50">
                     <i class="fa-solid fa-wand-magic-sparkles"></i> AI Analyze & Process Approach
@@ -128,7 +128,12 @@
                                 <h4 class="text-xs font-extrabold text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
                                     <i class="fa-solid fa-address-card text-emerald-400 text-sm"></i> RAM Registry Stack
                                 </h4>
-                                <span class="text-[10px] bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded border border-amber-500/20 font-bold uppercase tracking-wide">Edit Value Live</span>
+                                <span class="text-[10px] bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded border border-amber-500/20 font-bold uppercase tracking-wide">Edit Array Live</span>
+                            </div>
+                            <!-- Dynamic Array Input Matrix Box -->
+                            <div class="bg-slate-950 border border-slate-800 rounded-xl p-3 flex flex-col gap-2">
+                                <label class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Dynamic Array Elements Input</label>
+                                <input type="text" id="arrayElementsInput" oninput="handleArrayInputMutation()" class="w-full bg-slate-900 border border-slate-700/80 px-3 py-2 rounded-lg text-base code-font font-bold text-amber-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition tracking-wide text-center" value="12, 35, 1, 10, 34" />
                             </div>
                             <div id="variableTracker" class="flex flex-col gap-3 justify-start"></div>
                         </div>
@@ -151,12 +156,13 @@
         C-Logic Engine Workspace Platform • 2026
     </footer>
 
-    <!-- DYNAMIC CORE PARSING SIMULATOR ENGINE RULES -->
+    <!-- STABLE RULE-BASED TIMELINE ARCHITECTURE WRAPPER -->
     <script>
         let aiGeneratedDataset = null;
         let selectedMode = 'easy';
         let simulationStep = 0;
-        let activeVariablesState = {}; // Mapped mutable object array store running states live inputs changes
+        let simulationTimelineSteps = []; // Holds every sequential compilation pass run block iteration!
+        let userMutatedArray = [12, 35, 1, 10, 34];
 
         async function askCloudNetworkAI() {
             const queryText = document.getElementById('questionInput').value.trim();
@@ -169,30 +175,14 @@
             btn.disabled = true;
             btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin mr-1"></i> Cloud AI Processing...`;
 
-            const systemContextPrompt = `You are an interactive C compiler simulator. Analyze the user's question and output a strict JSON structure. Avoid any markdown code-block wraps like \`\`\`json. Output raw text parameters only.
+            const systemContextPrompt = `You are an interactive C compiler simulator. Analyze the user's question and output a strict JSON structure. Avoid any markdown wraps or code block quotes.
             Format structural schema:
             {
               "theoryEasy": "Simple conceptual breakdown explanation.",
               "theoryOpt": "Optimized performance logic explanation.",
-              "easyCode": {
-                 "code": ["int year = 2024;", "int isLeap = 0;", "if (year % 400 == 0) { isLeap = 1; }", "else if (year % 100 == 0) { isLeap = 0; }", "else if (year % 4 == 0) { isLeap = 1; }"],
-                 "steps": [
-                    {"line": 0, "vars": {"year": "2024", "isLeap": "0"}, "cond": "Initialize variable year.", "exprTemplate": "year = {year}"},
-                    {"line": 1, "vars": {"year": "2024", "isLeap": "0"}, "cond": "Initialize isLeap flag.", "exprTemplate": "isLeap = {isLeap}"},
-                    {"line": 2, "vars": {"year": "2024", "isLeap": "0"}, "cond": "Evaluate if divisible by 400.", "exprTemplate": "if ({year} % 400 == 0)"},
-                    {"line": 3, "vars": {"year": "2024", "isLeap": "0"}, "cond": "Evaluate if divisible by 100.", "exprTemplate": "else if ({year} % 100 == 0)"},
-                    {"line": 4, "vars": {"year": "2024", "isLeap": "1"}, "cond": "Evaluate if divisible by 4. Condition matched!", "exprTemplate": "else if ({year} % 4 == 0)"}
-                 ]
-              },
-              "optCode": {
-                 "code": ["int year = 2024;", "int isLeap = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);"],
-                 "steps": [
-                    {"line": 0, "vars": {"year": "2024", "isLeap": "0"}, "cond": "Initialize parameters.", "exprTemplate": "year = {year}"},
-                    {"line": 1, "vars": {"year": "2024", "isLeap": "1"}, "cond": "Evaluate short-circuit expression formula block.", "exprTemplate": "isLeap = ({year} % 4 == 0 && {year} % 100 != 0) || ({year} % 400 == 0)"}
-                 ]
-              }
-            }
-            Ensure the 'exprTemplate' parameter uses brace wraps like {variableName} where variables sit inside conditions. Make sure the 'vars' block in subsequent steps reflects the correct evaluated result state of all variables at that step. User Question: ${queryText}`;
+              "easyCode": ["int nums[5] = {12, 35, 1, 10, 34};", "int max = -1, sec = -1;", "for (int i = 0; i < 5; i++) {", "    if (nums[i] > max) { sec = max; max = nums[i]; }", "    else if (nums[i] > sec && nums[i] != max) { sec = nums[i]; }", "}"],
+              "optCode": ["int nums[5] = {12, 35, 1, 10, 34};", "int max = (nums[0] > nums[1]) ? nums[0] : nums[1];", "int sec = (nums[0] > nums[1]) ? nums[1] : nums[0];", "for (int i = 2; i < 5; i++) {", "    if (nums[i] > max) { sec = max; max = nums[i]; }", "    else if (nums[i] > sec) { sec = nums[i]; }", "}"]
+            }`;
 
             try {
                 const aiResult = await puter.ai.chat(systemContextPrompt, { model: 'google/gemini-3.5-flash' });
@@ -215,8 +205,8 @@
                 document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth' });
 
             } catch (error) {
-                console.error("Cloud Engine node breakdown:", error);
-                alert("AI network execution latency error. Please click process query again!");
+                console.error("Cloud Node failure:", error);
+                alert("AI network latency error. Please click process again!");
             } finally {
                 btn.disabled = false;
                 btn.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles"></i> AI Analyze & Process Approach`;
@@ -228,31 +218,20 @@
             document.getElementById('codeSandboxArena').classList.remove('hidden');
             selectedMode = 'easy';
             
-            initializeVariablesMapState();
+            // Re-read initial matrix sequence integers parameters safely
+            const rawArrVal = document.getElementById('arrayElementsInput').value;
+            userMutatedArray = rawArrVal.split(',').map(n => parseInt(n.trim()) || 0);
+            
             renderCodeWorkspace();
         }
 
-        function initializeVariablesMapState() {
-            activeVariablesState = {};
-            const modeKey = selectedMode === 'easy' ? 'easyCode' : 'optCode';
-            const contextData = aiGeneratedDataset[modeKey];
-            
-            // Gather initial state template keys variables maps from baseline layers cleanly
-            if(contextData.steps && contextData.steps[0] && contextData.steps[0].vars) {
-                for(let key in contextData.steps[0].vars) {
-                    activeVariablesState[key] = contextData.steps[0].vars[key];
-                }
-            }
-        }
-
         function renderCodeWorkspace() {
-            const modeKey = selectedMode === 'easy' ? 'easyCode' : 'optCode';
-            const executionData = aiGeneratedDataset[modeKey];
+            const linesArr = selectedMode === 'easy' ? aiGeneratedDataset.easyCode : aiGeneratedDataset.optCode;
             
             const codeContainer = document.getElementById('codeContainer');
             codeContainer.innerHTML = '';
             
-            executionData.code.forEach((line, index) => {
+            linesArr.forEach((line, index) => {
                 const row = document.createElement('div');
                 row.id = `code-line-${index}`;
                 row.className = 'px-4 py-1 transition-all duration-150 rounded flex gap-5 text-base';
@@ -260,8 +239,7 @@
                 codeContainer.appendChild(row);
             });
 
-            simulationStep = 0;
-            refreshSimulatorControls();
+            buildTrueCompilerSimulationTimeline();
         }
 
         function switchLogicMode(mode) {
@@ -277,158 +255,140 @@
                 tabEasy.className = "flex-1 py-3 text-base font-bold rounded-lg transition text-center cursor-pointer text-slate-400 hover:text-slate-200 hover:bg-slate-800/50";
             }
             
-            initializeVariablesMapState();
             renderCodeWorkspace();
         }
 
-        // TRIGGER ON LIVE RAM BOX INPUT CORRECTION MAPPINGS
-        function handleVariableValueChange(varName, newValue) {
-            activeVariablesState[varName] = newValue.trim();
-            reEvaluateSimulationState(); // Live triggers full compiler flow parameters computations
+        function handleArrayInputMutation() {
+            const rawArrVal = document.getElementById('arrayElementsInput').value;
+            userMutatedArray = rawArrVal.split(',').map(n => parseInt(n.trim()) || 0);
+            
+            buildTrueCompilerSimulationTimeline(); // Instantly regenerate the whole compiler execution cycle trace!
         }
 
-        // RE-EVALUATION INTERPRETER ENGINE CORE LAYER
-        function reEvaluateSimulationState() {
-            const modeKey = selectedMode === 'easy' ? 'easyCode' : 'optCode';
-            const contextData = aiGeneratedDataset[modeKey];
-            
-            // Core algorithm detects inputs type checks structure automatically bounds values
-            let inputYear = parseInt(activeVariablesState['year']) || 0;
-            
-            // Loop runs dynamically overrides variable outputs calculation flags inside stack frames
-            contextData.steps.forEach((step, idx) => {
-                if(step.vars) {
-                    // Retain user dynamic input mutation parameter across iterations loop frames
-                    step.vars['year'] = inputYear.toString();
+        // DYNAMIC COMPILER LOGIC VISUALIZER ENGINE: Builds every step sequentially!
+        function buildTrueCompilerSimulationTimeline() {
+            simulationTimelineSteps = [];
+            const arr = userMutatedArray;
+            const size = arr.length;
+
+            if(selectedMode === 'easy') {
+                // Step 1: Initial Array Allocation Line
+                simulationTimelineSteps.push({ line: 0, vars: { max: 'undefined', sec: 'undefined', i: 'undefined' }, cond: `Initializing array variable container: nums = { ${arr.join(', ')} }`, expr: "int nums[5];" });
+                
+                // Step 2: Registry Initialization
+                let cMax = -1;
+                let cSec = -1;
+                simulationTimelineSteps.push({ line: 1, vars: { max: cMax, sec: cSec, i: 'undefined' }, cond: "Setting track boundary markers: max = -1, sec = -1", expr: "max = -1, sec = -1;" });
+
+                // Step 3: Loop Iteration Expansion Layer (Processes EVERY SINGLE INDEX sequential compilation step!)
+                for(let i = 0; i < size; i++) {
+                    simulationTimelineSteps.push({ line: 2, vars: { max: cMax, sec: cSec, i: i }, cond: `Loop Condition validation path check: Is loop index (i = ${i}) < ${size}? -> <span class='text-emerald-400 font-bold'>TRUE</span>`, expr: `for (int i = ${i}; i < 5; i++)` });
                     
-                    // TRUE DYNAMIC CONDITIONAL CALCULATOR FOR LEAP YEAR TRACKING FLOWS
-                    if(idx >= 1) { 
-                        let isLeapOutcome = 0;
-                        if ((inputYear % 4 === 0 && inputYear % 100 !== 0) || (inputYear % 400 === 0)) {
-                            isLeapOutcome = 1;
-                        }
-                        
-                        // Sync variable state update across sequence layers dynamically!
-                        if(step.vars.hasOwnProperty('isLeap') || step.vars.hasOwnProperty('isleap')) {
-                            const targetKey = step.vars.hasOwnProperty('isLeap') ? 'isLeap' : 'isleap';
-                            
-                            // Progress increments updates variables step flag conditions dynamically
-                            if(modeKey === 'easyCode') {
-                                if(idx === 2 && inputYear % 400 === 0) { step.vars[targetKey] = "1"; }
-                                else if(idx === 3 && inputYear % 100 === 0) { step.vars[targetKey] = "0"; }
-                                else if(idx === 4 && inputYear % 4 === 0) { step.vars[targetKey] = "1"; }
-                                else if(idx === contextData.steps.length - 1) { step.vars[targetKey] = isLeapOutcome.toString(); }
-                                else { step.vars[targetKey] = "0"; }
-                            } else {
-                                // Optimized route triggers immediate updates
-                                if(idx >= 1) step.vars[targetKey] = isLeapOutcome.toString();
-                            }
-                        }
+                    const currentVal = arr[i];
+                    simulationTimelineSteps.push({ line: 3, vars: { max: cMax, sec: cSec, i: i }, cond: `Evaluating comparison expression branch: Is nums[${i}] (${currentVal}) > current max (${cMax})?`, expr: `if (${currentVal} > ${cMax})` });
+
+                    if(currentVal > cMax) {
+                        cSec = cMax;
+                        cMax = currentVal;
+                        simulationTimelineSteps.push({ line: 3, vars: { max: cMax, sec: cSec, i: i }, cond: `<span class='text-emerald-400 font-bold'>Condition TRUE!</span> Old max drops down to sec highest (${cSec}), and new maximum updates to <b>${cMax}</b>.`, expr: `sec = max; max = ${currentVal};` });
+                    } else if(currentVal > cSec && currentVal !== cMax) {
+                        cSec = currentVal;
+                        simulationTimelineSteps.push({ line: 4, vars: { max: cMax, sec: cSec, i: i }, cond: `Else-if check true: nums[${i}] (${currentVal}) > sec (${cSec}). Updating second highest variable container block to <b>${cSec}</b>.`, expr: `else if (${currentVal} > ${cSec})` });
+                    } else {
+                        simulationTimelineSteps.push({ line: 4, vars: { max: cMax, sec: cSec, i: i }, cond: `Comparison false. Values unchanged. max remains ${cMax}, sec remains ${cSec}.`, expr: "Condition branches evaluated directly to FALSE." });
                     }
                 }
-            });
 
-            renderActiveStepGraphicsPanel();
+                // Loop Termination Pass step
+                simulationTimelineSteps.push({ line: 2, vars: { max: cMax, sec: cSec, i: size }, cond: `Loop Edge boundary evaluation check: Is loop index (i = ${size}) < ${size}? -> <span class='text-rose-400 font-bold'>FALSE</span>. Exiting loop scope cleanly.`, expr: `for (int i = ${size}; i < 5; i++)` });
+                simulationTimelineSteps.push({ line: 5, vars: { max: cMax, sec: cSec }, cond: `Compiler visualizer complete execution summary trace finished. Second highest variable value is confirmed as: <span class='text-cyan-400 font-extrabold text-base underline'>${cSec}</span>`, expr: `Execution Ended. Final result: ${cSec}` });
+
+            } else {
+                // OPTIMIZED PASS MODEL TIMELINE TIMETRACE
+                simulationTimelineSteps.push({ line: 0, vars: { max: 'undefined', sec: 'undefined', i: 'undefined' }, cond: "Initial allocation stack initialization active elements parameters.", expr: "int nums[5];" });
+                
+                let oMax = arr[0] > arr[1] ? arr[0] : arr[1];
+                let oSec = arr[0] > arr[1] ? arr[1] : arr[0];
+                
+                simulationTimelineSteps.push({ line: 1, vars: { max: oMax, sec: oSec, i: 'undefined' }, cond: `Optimization rule check: Seed parameters max/sec indicators variables comparing element 0 and 1 instantly. max = ${oMax}, sec = ${oSec}`, expr: `max = (${arr[0]} > ${arr[1]}) ? ${arr[0]} : ${arr[1]}` });
+
+                for(let i = 2; i < size; i++) {
+                    simulationTimelineSteps.push({ line: 3, vars: { max: oMax, sec: oSec, i: i }, cond: `Optimized validation sequence pass trace loop index i = ${i}. Element comparison check value: ${arr[i]}`, expr: `if (${arr[i]} > ${oMax})` });
+                    
+                    if(arr[i] > oMax) {
+                        oSec = oMax;
+                        oMax = arr[i];
+                    } else if(arr[i] > oSec) {
+                        oSec = arr[i];
+                    }
+                }
+                simulationTimelineSteps.push({ line: 6, vars: { max: oMax, sec: oSec }, cond: `Optimized linear scanner successfully trace calculated value: <b>${oSec}</b>`, expr: `Process finished. Result = ${oSec}` });
+            }
+
+            simulationStep = 0;
+            renderActiveStepTimelineState();
         }
 
-        function refreshSimulatorControls() {
-            const modeKey = selectedMode === 'easy' ? 'easyCode' : 'optCode';
-            const contextData = aiGeneratedDataset[modeKey];
-            const activeStepState = contextData.steps[simulationStep];
+        function renderActiveStepTimelineState() {
+            const activeStateFrame = simulationTimelineSteps[simulationStep];
+            if(!activeStateFrame) return;
 
             document.getElementById('stepCounter').innerText = simulationStep + 1;
-            document.getElementById('totalSteps').innerText = contextData.steps.length;
+            document.getElementById('totalSteps').innerText = simulationTimelineSteps.length;
 
             document.getElementById('prevBtn').disabled = simulationStep === 0;
-            document.getElementById('nextBtn').disabled = simulationStep === contextData.steps.length - 1;
+            document.getElementById('nextBtn').disabled = simulationStep === simulationTimelineSteps.length - 1;
 
-            contextData.code.forEach((_, index) => {
+            // Highlight line tracker parameters
+            const linesArr = selectedMode === 'easy' ? aiGeneratedDataset.easyCode : aiGeneratedDataset.optCode;
+            linesArr.forEach((_, index) => {
                 const element = document.getElementById(`code-line-${index}`);
                 if(element) element.classList.remove('active-line');
             });
 
-            if(activeStepState && document.getElementById(`code-line-${activeStepState.line}`)) {
-                document.getElementById(`code-line-${activeStepState.line}`).classList.add('active-line');
-            }
+            const targetCodeLineRow = document.getElementById(`code-line-${activeStateFrame.line}`);
+            if(targetCodeLineRow) targetCodeLineRow.classList.add('active-line');
 
-            reEvaluateSimulationState();
-        }
-
-        function renderActiveStepGraphicsPanel() {
-            const modeKey = selectedMode === 'easy' ? 'easyCode' : 'optCode';
-            const contextData = aiGeneratedDataset[modeKey];
-            const activeStepState = contextData.steps[simulationStep];
-
+            // RENDER RAM REGISTRY WORKSPACE - CLEANED COMPLETELY OF EXTRA YEAR INJECTIONS!
             const variableTracker = document.getElementById('variableTracker');
             variableTracker.innerHTML = '';
 
-            if (activeStepState && activeStepState.vars) {
-                for(let name in activeStepState.vars) {
-                    const valueToken = activeStepState.vars[name];
-                    const isEditable = name.toLowerCase() === 'year'; // Allow users to edit control boundaries
-                    
-                    const box = document.createElement('div');
-                    box.className = "bg-slate-950 border border-slate-800/80 rounded-xl p-3 flex justify-between items-center shadow-inner text-base";
-                    box.innerHTML = `
-                        <div class="flex flex-col">
-                            <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wide">Variable</span>
-                            <span class="code-font text-base font-bold text-emerald-400">${name}</span>
-                        </div>
-                        ${isEditable ? 
-                          `<input type="text" value="${valueToken}" oninput="handleVariableValueChange('${name}', this.value)" class="bg-slate-900 border border-slate-700/80 px-4 py-1.5 rounded-lg text-base code-font font-bold text-amber-400 w-28 text-center focus:outline-none focus:ring-2 focus:ring-cyan-500 transition shadow-inner" />` :
-                          `<div class="bg-slate-900 border border-slate-800/60 px-4 py-1.5 rounded-lg text-base code-font font-bold text-cyan-400 min-w-[112px] text-center shadow-md select-none">${valueToken}</div>`
-                        }
-                    `;
-                    variableTracker.appendChild(box);
-                }
+            for(let name in activeStateFrame.vars) {
+                const val = activeStateFrame.vars[name];
+                const box = document.createElement('div');
+                box.className = "bg-slate-950 border border-slate-800/80 rounded-xl p-3 flex justify-between items-center shadow-inner text-base";
+                box.innerHTML = `
+                    <div class="flex flex-col">
+                        <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wide">Variable</span>
+                        <span class="code-font text-base font-bold text-emerald-400">${name}</span>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-800/60 px-4 py-1.5 rounded-lg text-base code-font font-bold text-cyan-400 min-w-[112px] text-center shadow-md select-none">${val}</div>
+                `;
+                variableTracker.appendChild(box);
             }
 
-            // DYNAMIC GRAPHICAL PARSER: Replaces execution placeholders strings safely
-            let rawExpressionTemplate = activeStepState ? (activeStepState.exprTemplate || activeStepState.cond) : 'Simulation Mapped';
-            let formattedGraphicHTML = rawExpressionTemplate;
-
-            if(activeStepState && activeStepState.vars) {
-                for(let name in activeStepState.vars) {
-                    const dynamicValue = activeStepState.vars[name];
-                    formattedGraphicHTML = formattedGraphicHTML.replace(new RegExp(`\\{${name}\\}`, 'g'), `<span class="text-amber-400 font-extrabold px-1 underline decoration-2 decoration-cyan-500 font-mono text-base">${dynamicValue}</span>`);
-                }
-            }
-
-            // Inject Live Parser Logic state conditions evaluations text directly into block box
-            let finalInterpretationText = activeStepState ? activeStepState.cond : '';
-            let parsedYear = parseInt(activeStepState.vars['year']) || 0;
-            
-            if(rawExpressionTemplate.includes('%')) {
-                const evalDiv4 = parsedYear % 4 === 0;
-                const evalDiv100 = parsedYear % 100 === 0;
-                const evalDiv440 = parsedYear % 400 === 0;
-                let checkOutcome = (evalDiv4 && !evalDiv100) || evalDiv440;
-                
-                finalInterpretationText = `Live Evaluator Check: Expression parses values calculation matrix directly to:<br><b class="text-slate-200">${rawExpressionTemplate.replace(/\{year\}/g, parsedYear)}</b> -> Evaluates directly to: ${checkOutcome ? "<span class='text-emerald-400 font-extrabold font-mono text-sm ml-1'>TRUE (Leap Year)</span>" : "<span class='text-rose-400 font-extrabold font-mono text-sm ml-1'>FALSE (Non-Leap Year)</span>"}`;
-            }
-
+            // EXPRESSION PROCESSOR DISPLAY OUTPUT UPDATE
             document.getElementById('conditionTracker').innerHTML = `
                 <div class="w-full flex flex-col gap-2">
                     <div class="bg-slate-900 border border-slate-800/80 py-1.5 px-4 rounded-xl text-sm font-mono text-cyan-300 inline-block mx-auto max-w-full tracking-wide shadow-inner">
-                        ${formattedGraphicHTML}
+                        ${escapeCharacters(activeStateFrame.expr)}
                     </div>
-                    <div class="text-sm text-slate-400 font-medium leading-relaxed pt-1">${finalInterpretationText}</div>
+                    <div class="text-sm text-slate-400 font-medium leading-relaxed pt-1">${activeStateFrame.cond}</div>
                 </div>
             `;
         }
 
         function stepForward() {
-            const modeKey = selectedMode === 'easy' ? 'easyCode' : 'optCode';
-            if(simulationStep < aiGeneratedDataset[modeKey].steps.length - 1) {
+            if(simulationStep < simulationTimelineSteps.length - 1) {
                 simulationStep++;
-                refreshSimulatorControls();
+                renderActiveStepTimelineState();
             }
         }
 
         function stepBackward() {
             if(simulationStep > 0) {
                 simulationStep--;
-                refreshSimulatorControls();
+                renderActiveStepTimelineState();
             }
         }
 
