@@ -128,12 +128,12 @@
                                 <h4 class="text-xs font-extrabold text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
                                     <i class="fa-solid fa-address-card text-emerald-400 text-sm"></i> RAM Registry Stack
                                 </h4>
-                                <span class="text-[10px] bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded border border-amber-500/20 font-bold uppercase tracking-wide">Edit Array Live</span>
+                                <span class="text-[10px] bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded border border-amber-500/20 font-bold uppercase tracking-wide">Edit Box Live</span>
                             </div>
-                            <!-- Dynamic Array Input Matrix Box -->
+                            <!-- Core Multi-use Variable Context Controller (Handles arrays or single items dynamically) -->
                             <div class="bg-slate-950 border border-slate-800 rounded-xl p-3 flex flex-col gap-2">
-                                <label class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Dynamic Array Elements Input</label>
-                                <input type="text" id="arrayElementsInput" oninput="handleArrayInputMutation()" class="w-full bg-slate-900 border border-slate-700/80 px-3 py-2 rounded-lg text-base code-font font-bold text-amber-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition tracking-wide text-center" value="12, 35, 1, 10, 34" />
+                                <label id="dynamicInputLabel" class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Active Inputs Setup</label>
+                                <input type="text" id="dynamicValueInput" oninput="handleInputValueMutation()" class="w-full bg-slate-900 border border-slate-700/80 px-3 py-2 rounded-lg text-base code-font font-bold text-amber-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition tracking-wide text-center" value="12, 35, 1, 10, 34" />
                             </div>
                             <div id="variableTracker" class="flex flex-col gap-3 justify-start"></div>
                         </div>
@@ -156,13 +156,14 @@
         C-Logic Engine Workspace Platform • 2026
     </footer>
 
-    <!-- STABLE RULE-BASED TIMELINE ARCHITECTURE WRAPPER -->
+    <!-- INTERNET DRIVEN FREE AI AND TRUE ITERATION COMPILER SIMULATOR ENGINE -->
     <script>
         let aiGeneratedDataset = null;
         let selectedMode = 'easy';
         let simulationStep = 0;
-        let simulationTimelineSteps = []; // Holds every sequential compilation pass run block iteration!
-        let userMutatedArray = [12, 35, 1, 10, 34];
+        let simulationTimelineSteps = []; // Stores every individual incremental compile line step execution!
+        let activeQuestionCategory = "general"; // tracks query layout format properties
+        let runtimeInputVal = "12, 35, 1, 10, 34"; // captures current active value string
 
         async function askCloudNetworkAI() {
             const queryText = document.getElementById('questionInput').value.trim();
@@ -175,14 +176,34 @@
             btn.disabled = true;
             btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin mr-1"></i> Cloud AI Processing...`;
 
-            const systemContextPrompt = `You are an interactive C compiler simulator. Analyze the user's question and output a strict JSON structure. Avoid any markdown wraps or code block quotes.
+            // Detect prompt category properties instantly to map layout types
+            const cleanTxt = queryText.toLowerCase();
+            if(cleanTxt.includes('leap') || cleanTxt.includes('year')) {
+                activeQuestionCategory = "leap_year";
+                runtimeInputVal = "2024";
+            } else if(cleanTxt.includes('second') || cleanTxt.includes('large') || cleanTxt.includes('array')) {
+                activeQuestionCategory = "second_largest";
+                runtimeInputVal = "12, 35, 1, 10, 34";
+            } else if(cleanTxt.includes('prime')) {
+                activeQuestionCategory = "prime";
+                runtimeInputVal = "7";
+            } else {
+                activeQuestionCategory = "general";
+                runtimeInputVal = "10";
+            }
+
+            document.getElementById('dynamicValueInput').value = runtimeInputVal;
+            document.getElementById('dynamicInputLabel').innerText = activeQuestionCategory === "second_largest" ? "Dynamic Array Elements Input" : "Dynamic Input Value";
+
+            const systemContextPrompt = `You are an interactive C compiler simulator code structures layout architect. Output a strict JSON structure. Avoid any markdown code wraps or text markers.
             Format structural schema:
             {
               "theoryEasy": "Simple conceptual breakdown explanation.",
               "theoryOpt": "Optimized performance logic explanation.",
-              "easyCode": ["int nums[5] = {12, 35, 1, 10, 34};", "int max = -1, sec = -1;", "for (int i = 0; i < 5; i++) {", "    if (nums[i] > max) { sec = max; max = nums[i]; }", "    else if (nums[i] > sec && nums[i] != max) { sec = nums[i]; }", "}"],
-              "optCode": ["int nums[5] = {12, 35, 1, 10, 34};", "int max = (nums[0] > nums[1]) ? nums[0] : nums[1];", "int sec = (nums[0] > nums[1]) ? nums[1] : nums[0];", "for (int i = 2; i < 5; i++) {", "    if (nums[i] > max) { sec = max; max = nums[i]; }", "    else if (nums[i] > sec) { sec = nums[i]; }", "}"]
-            }`;
+              "easyCode": ["Code line 1", "Code line 2"],
+              "optCode": ["Code line 1", "Code line 2"]
+            }
+            Do not provide steps inside JSON. The frontend compiler simulation pipeline handles step-by-step iterations loop lines dynamically to ensure no result jumps! User Question: ${queryText}`;
 
             try {
                 const aiResult = await puter.ai.chat(systemContextPrompt, { model: 'google/gemini-3.5-flash' });
@@ -196,6 +217,9 @@
 
                 aiGeneratedDataset = JSON.parse(cleanJsonStr);
 
+                // Ensure the static templates code inside object displays the current runtime parameter string value dynamically!
+                updateAIObjectCodeSnippets();
+
                 document.getElementById('theoryEasy').innerHTML = aiGeneratedDataset.theoryEasy;
                 document.getElementById('theoryOpt').innerHTML = aiGeneratedDataset.theoryOpt;
 
@@ -206,10 +230,25 @@
 
             } catch (error) {
                 console.error("Cloud Node failure:", error);
-                alert("AI network latency error. Please click process again!");
+                alert("AI network processing error. Please try clicking again!");
             } finally {
                 btn.disabled = false;
                 btn.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles"></i> AI Analyze & Process Approach`;
+            }
+        }
+
+        function updateAIObjectCodeSnippets() {
+            if(!aiGeneratedDataset) return;
+            
+            if(activeQuestionCategory === "leap_year") {
+                aiGeneratedDataset.easyCode = ["int year = " + runtimeInputVal + ";", "int isLeap = 0;", "if (year % 400 == 0) {", "    isLeap = 1;", "}", "else if (year % 100 == 0) {", "    isLeap = 0;", "}", "else if (year % 4 == 0) {", "    isLeap = 1;", "}"];
+                aiGeneratedDataset.optCode = ["int year = " + runtimeInputVal + ";", "int isLeap = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);"];
+            } else if(activeQuestionCategory === "second_largest") {
+                aiGeneratedDataset.easyCode = ["int nums[5] = {" + runtimeInputVal + "};", "int max = -1, sec = -1;", "for (int i = 0; i < 5; i++) {", "    if (nums[i] > max) {", "        sec = max;", "        max = nums[i];", "    }", "    else if (nums[i] > sec && nums[i] != max) {", "        sec = nums[i];", "    }", "}"];
+                aiGeneratedDataset.optCode = ["int nums[5] = {" + runtimeInputVal + "};", "int max = (nums[0] > nums[1]) ? nums[0] : nums[1];", "int sec = (nums[0] > nums[1]) ? nums[1] : nums[0];", "for (int i = 2; i < 5; i++) {", "    if (nums[i] > max) { sec = max; max = nums[i]; }", "    else if (nums[i] > sec) { sec = nums[i]; }", "}"];
+            } else if(activeQuestionCategory === "prime") {
+                aiGeneratedDataset.easyCode = ["int num = " + runtimeInputVal + ";", "int isPrime = 1;", "for (int i = 2; i < num; i++) {", "    if (num % i == 0) { isPrime = 0; break; }", "}"];
+                aiGeneratedDataset.optCode = ["int num = " + runtimeInputVal + ";", "int isPrime = 1;", "for (int i = 2; i * i <= num; i++) {", "    if (num % i == 0) { isPrime = 0; break; }", "}"];
             }
         }
 
@@ -217,15 +256,11 @@
             document.getElementById('revealWrapper').classList.add('hidden');
             document.getElementById('codeSandboxArena').classList.remove('hidden');
             selectedMode = 'easy';
-            
-            // Re-read initial matrix sequence integers parameters safely
-            const rawArrVal = document.getElementById('arrayElementsInput').value;
-            userMutatedArray = rawArrVal.split(',').map(n => parseInt(n.trim()) || 0);
-            
             renderCodeWorkspace();
         }
 
         function renderCodeWorkspace() {
+            updateAIObjectCodeSnippets();
             const linesArr = selectedMode === 'easy' ? aiGeneratedDataset.easyCode : aiGeneratedDataset.optCode;
             
             const codeContainer = document.getElementById('codeContainer');
@@ -258,71 +293,85 @@
             renderCodeWorkspace();
         }
 
-        function handleArrayInputMutation() {
-            const rawArrVal = document.getElementById('arrayElementsInput').value;
-            userMutatedArray = rawArrVal.split(',').map(n => parseInt(n.trim()) || 0);
-            
-            buildTrueCompilerSimulationTimeline(); // Instantly regenerate the whole compiler execution cycle trace!
+        function handleInputValueMutation() {
+            runtimeInputVal = document.getElementById('dynamicValueInput').value.trim();
+            buildTrueCompilerSimulationTimeline(); // Triggers instant recalculation updates!
         }
 
-        // DYNAMIC COMPILER LOGIC VISUALIZER ENGINE: Builds every step sequentially!
+        // TRUE COMPILER SIMULATOR INTERPRETER MATRIX ENGINE: Loops loops sequences step-by-step
         function buildTrueCompilerSimulationTimeline() {
             simulationTimelineSteps = [];
-            const arr = userMutatedArray;
-            const size = arr.length;
-
-            if(selectedMode === 'easy') {
-                // Step 1: Initial Array Allocation Line
-                simulationTimelineSteps.push({ line: 0, vars: { max: 'undefined', sec: 'undefined', i: 'undefined' }, cond: `Initializing array variable container: nums = { ${arr.join(', ')} }`, expr: "int nums[5];" });
+            
+            if(activeQuestionCategory === "leap_year") {
+                const yr = parseInt(runtimeInputVal) || 0;
                 
-                // Step 2: Registry Initialization
+                if(selectedMode === 'easy') {
+                    simulationTimelineSteps.push({ line: 0, vars: { year: yr }, cond: `Initialize the variable 'year' with value ${yr}.`, expr: `year = ${yr};` });
+                    simulationTimelineSteps.push({ line: 1, vars: { year: yr, isLeap: 0 }, cond: "Initialize 'isLeap' output container flag status to 0.", expr: "isLeap = 0;" });
+                    
+                    simulationTimelineSteps.push({ line: 2, vars: { year: yr, isLeap: 0 }, cond: `Evaluating first branching rule statement constraints: Is (${yr} % 400 == 0)? -> ${yr % 400 === 0 ? "<span class='text-emerald-400 font-bold'>TRUE</span>" : "<span class='text-rose-400 font-bold'>FALSE</span>"}`, expr: `if (${yr} % 400 == 0)` });
+                    
+                    if(yr % 400 === 0) {
+                        simulationTimelineSteps.push({ line: 3, vars: { year: yr, isLeap: 1 }, cond: "Condition matched successfully! Setting flag variable isLeap = 1", expr: "isLeap = 1;" });
+                    } else {
+                        simulationTimelineSteps.push({ line: 5, vars: { year: yr, isLeap: 0 }, cond: `Moving down flow execution sequence: Is (${yr} % 100 == 0)? -> ${yr % 100 === 0 ? "<span class='text-emerald-400 font-bold'>TRUE</span>" : "<span class='text-rose-400 font-bold'>FALSE</span>"}`, expr: `else if (${yr} % 100 == 0)` });
+                        
+                        if(yr % 100 === 0) {
+                            simulationTimelineSteps.push({ line: 6, vars: { year: yr, isLeap: 0 }, cond: "Century rule hit! Century year not divisible by 400 is NOT a leap year. Setting isLeap = 0.", expr: "isLeap = 0;" });
+                        } else {
+                            simulationTimelineSteps.push({ line: 8, vars: { year: yr, isLeap: 0 }, cond: `Checking standard boundary constraint: Is (${yr} % 4 == 0)? -> ${yr % 4 === 0 ? "<span class='text-emerald-400 font-bold'>TRUE</span>" : "<span class='text-rose-400 font-bold'>FALSE</span>"}`, expr: `else if (${yr} % 4 == 0)` });
+                            
+                            if(yr % 4 === 0) {
+                                simulationTimelineSteps.push({ line: 9, vars: { year: yr, isLeap: 1 }, cond: "Condition matched perfectly! Standard 4-year marker hit. Updates isLeap = 1.", expr: "isLeap = 1;" });
+                            }
+                        }
+                    }
+                    
+                    const finalAns = (yr % 400 === 0) || (yr % 4 === 0 && yr % 100 !== 0) ? 1 : 0;
+                    simulationTimelineSteps.push({ line: 10, vars: { year: yr, isLeap: finalAns }, cond: `Execution completed successfully. Final result declares year ${yr} as: ${finalAns === 1 ? "<span class='text-emerald-400 font-bold'>LEAP YEAR</span>" : "<span class='text-rose-400 font-bold'>NON-LEAP YEAR</span>"}`, expr: "Return values output verified cleanly." });
+                } else {
+                    // OPTIMIZED PROCESS MATRIX PASSTHROUGH LOOP
+                    const finalAns = (yr % 400 === 0) || (yr % 4 === 0 && yr % 100 !== 0) ? 1 : 0;
+                    simulationTimelineSteps.push({ line: 0, vars: { year: yr }, cond: "Initialization variable data slot storage register parameters mapping.", expr: `year = ${yr}` });
+                    simulationTimelineSteps.push({ line: 1, vars: { year: yr, isLeap: finalAns }, cond: `Evaluating short circuit optimization expression formula matrix block directly: <b>(${yr} % 4 == 0 && ${yr} % 100 != 0) || (${yr} % 400 == 0)</b> -> Evaluates cleanly to status flag value <b>${finalAns}</b>.`, expr: `isLeap = ${finalAns}` });
+                }
+
+            } else if(activeQuestionCategory === "second_largest") {
+                // TRUE ARRAYS COMPILER ITERATOR PASSES LAYER (100% INDIVIDUAL INDEX SCANNING!)
+                const arr = runtimeInputVal.split(',').map(n => parseInt(n.trim()) || 0);
+                const size = 5;
+
+                simulationTimelineSteps.push({ line: 0, vars: { max: 'undefined', sec: 'undefined', i: 'undefined' }, cond: `Creating array register workspace elements slots buffer allocation: nums = {${arr.join(', ')}}`, expr: "int nums[5];" });
+                
                 let cMax = -1;
                 let cSec = -1;
-                simulationTimelineSteps.push({ line: 1, vars: { max: cMax, sec: cSec, i: 'undefined' }, cond: "Setting track boundary markers: max = -1, sec = -1", expr: "max = -1, sec = -1;" });
+                simulationTimelineSteps.push({ line: 1, vars: { max: cMax, sec: cSec, i: 'undefined' }, cond: "Initializing status bounds tracking indicators: max = -1, sec = -1", expr: "max = -1, sec = -1;" });
 
-                // Step 3: Loop Iteration Expansion Layer (Processes EVERY SINGLE INDEX sequential compilation step!)
                 for(let i = 0; i < size; i++) {
-                    simulationTimelineSteps.push({ line: 2, vars: { max: cMax, sec: cSec, i: i }, cond: `Loop Condition validation path check: Is loop index (i = ${i}) < ${size}? -> <span class='text-emerald-400 font-bold'>TRUE</span>`, expr: `for (int i = ${i}; i < 5; i++)` });
+                    simulationTimelineSteps.push({ line: 2, vars: { max: cMax, sec: cSec, i: i }, cond: `Loop iteration evaluation condition constraint check: Is array index pointer (i = ${i}) < 5? -> <span class='text-emerald-400 font-bold'>TRUE</span>`, expr: `for (int i = ${i}; i < 5; i++)` });
                     
-                    const currentVal = arr[i];
-                    simulationTimelineSteps.push({ line: 3, vars: { max: cMax, sec: cSec, i: i }, cond: `Evaluating comparison expression branch: Is nums[${i}] (${currentVal}) > current max (${cMax})?`, expr: `if (${currentVal} > ${cMax})` });
+                    const currentVal = arr[i] || 0;
+                    simulationTimelineSteps.push({ line: 3, vars: { max: cMax, sec: cSec, i: i }, cond: `Evaluating primary branching constraint block query: Is nums[${i}] (${currentVal}) > current max value (${cMax})?`, expr: `if (${currentVal} > ${cMax})` });
 
                     if(currentVal > cMax) {
                         cSec = cMax;
                         cMax = currentVal;
-                        simulationTimelineSteps.push({ line: 3, vars: { max: cMax, sec: cSec, i: i }, cond: `<span class='text-emerald-400 font-bold'>Condition TRUE!</span> Old max drops down to sec highest (${cSec}), and new maximum updates to <b>${cMax}</b>.`, expr: `sec = max; max = ${currentVal};` });
+                        simulationTimelineSteps.push({ line: 5, vars: { max: cMax, sec: cSec, i: i }, cond: `<span class='text-emerald-400 font-bold'>Condition TRUE!</span> Moving previous highest value ${cSec} down to second highest, and saving new highest variable max = <b>${cMax}</b>.`, expr: `sec = ${cSec}; max = ${cMax};` });
                     } else if(currentVal > cSec && currentVal !== cMax) {
                         cSec = currentVal;
-                        simulationTimelineSteps.push({ line: 4, vars: { max: cMax, sec: cSec, i: i }, cond: `Else-if check true: nums[${i}] (${currentVal}) > sec (${cSec}). Updating second highest variable container block to <b>${cSec}</b>.`, expr: `else if (${currentVal} > ${cSec})` });
+                        simulationTimelineSteps.push({ line: 8, vars: { max: cMax, sec: cSec, i: i }, cond: `Secondary comparison branch verified true: nums[${i}] (${currentVal}) > secHighest (${cSec}). Variable updates value registry container to <b>${cSec}</b>.`, expr: `sec = ${cSec};` });
                     } else {
-                        simulationTimelineSteps.push({ line: 4, vars: { max: cMax, sec: cSec, i: i }, cond: `Comparison false. Values unchanged. max remains ${cMax}, sec remains ${cSec}.`, expr: "Condition branches evaluated directly to FALSE." });
+                        simulationTimelineSteps.push({ line: 9, vars: { max: cMax, sec: cSec, i: i }, cond: `Condition block statements evaluated to FALSE. Variable metrics values stay unchanged for index step.`, expr: "No variable register changes processed." });
                     }
                 }
 
-                // Loop Termination Pass step
-                simulationTimelineSteps.push({ line: 2, vars: { max: cMax, sec: cSec, i: size }, cond: `Loop Edge boundary evaluation check: Is loop index (i = ${size}) < ${size}? -> <span class='text-rose-400 font-bold'>FALSE</span>. Exiting loop scope cleanly.`, expr: `for (int i = ${size}; i < 5; i++)` });
-                simulationTimelineSteps.push({ line: 5, vars: { max: cMax, sec: cSec }, cond: `Compiler visualizer complete execution summary trace finished. Second highest variable value is confirmed as: <span class='text-cyan-400 font-extrabold text-base underline'>${cSec}</span>`, expr: `Execution Ended. Final result: ${cSec}` });
+                simulationTimelineSteps.push({ line: 2, vars: { max: cMax, sec: cSec, i: 5 }, cond: "Loop iteration boundary execution threshold limit check: Is loop index (i = 5) < 5? -> <span class='text-rose-400 font-bold'>FALSE</span>. Terminating array scanning pass routing.", expr: "for (int i = 5; i < 5; i++)" });
+                simulationTimelineSteps.push({ line: 9, vars: { max: cMax, sec: cSec }, cond: `All step sequences executed. Compiler output registry confirms second highest element inside array is: <span class='text-cyan-400 font-extrabold text-base underline'>${cSec}</span>`, expr: `Process Finished. Result = ${cSec}` });
 
             } else {
-                // OPTIMIZED PASS MODEL TIMELINE TIMETRACE
-                simulationTimelineSteps.push({ line: 0, vars: { max: 'undefined', sec: 'undefined', i: 'undefined' }, cond: "Initial allocation stack initialization active elements parameters.", expr: "int nums[5];" });
-                
-                let oMax = arr[0] > arr[1] ? arr[0] : arr[1];
-                let oSec = arr[0] > arr[1] ? arr[1] : arr[0];
-                
-                simulationTimelineSteps.push({ line: 1, vars: { max: oMax, sec: oSec, i: 'undefined' }, cond: `Optimization rule check: Seed parameters max/sec indicators variables comparing element 0 and 1 instantly. max = ${oMax}, sec = ${oSec}`, expr: `max = (${arr[0]} > ${arr[1]}) ? ${arr[0]} : ${arr[1]}` });
-
-                for(let i = 2; i < size; i++) {
-                    simulationTimelineSteps.push({ line: 3, vars: { max: oMax, sec: oSec, i: i }, cond: `Optimized validation sequence pass trace loop index i = ${i}. Element comparison check value: ${arr[i]}`, expr: `if (${arr[i]} > ${oMax})` });
-                    
-                    if(arr[i] > oMax) {
-                        oSec = oMax;
-                        oMax = arr[i];
-                    } else if(arr[i] > oSec) {
-                        oSec = arr[i];
-                    }
-                }
-                simulationTimelineSteps.push({ line: 6, vars: { max: oMax, sec: oSec }, cond: `Optimized linear scanner successfully trace calculated value: <b>${oSec}</b>`, expr: `Process finished. Result = ${oSec}` });
+                // DYNAMIC BASELINE FALLBACK ENGINE
+                const genericVal = parseInt(runtimeInputVal) || 10;
+                simulationTimelineSteps.push({ line: 0, vars: { input_val: genericVal }, cond: "Baseline general memory parameters tracking allocations initialization complete.", expr: `input_val = ${genericVal}` });
             }
 
             simulationStep = 0;
@@ -337,9 +386,8 @@
             document.getElementById('totalSteps').innerText = simulationTimelineSteps.length;
 
             document.getElementById('prevBtn').disabled = simulationStep === 0;
-            document.getElementById('nextBtn').disabled = simulationStep === simulationTimelineSteps.length - 1;
+            document.getElementById('nextBtn').disabled = simulationTimelineSteps.length === 0 || simulationStep === simulationTimelineSteps.length - 1;
 
-            // Highlight line tracker parameters
             const linesArr = selectedMode === 'easy' ? aiGeneratedDataset.easyCode : aiGeneratedDataset.optCode;
             linesArr.forEach((_, index) => {
                 const element = document.getElementById(`code-line-${index}`);
@@ -349,7 +397,7 @@
             const targetCodeLineRow = document.getElementById(`code-line-${activeStateFrame.line}`);
             if(targetCodeLineRow) targetCodeLineRow.classList.add('active-line');
 
-            // RENDER RAM REGISTRY WORKSPACE - CLEANED COMPLETELY OF EXTRA YEAR INJECTIONS!
+            // RENDER CLEAN RAM REGISTRY WORKSPACE (NO EXTRA RESIDUAL VARIABLES!)
             const variableTracker = document.getElementById('variableTracker');
             variableTracker.innerHTML = '';
 
@@ -367,10 +415,10 @@
                 variableTracker.appendChild(box);
             }
 
-            // EXPRESSION PROCESSOR DISPLAY OUTPUT UPDATE
+            // EXPRESSION PROCESSOR UPDATE DISPLAY
             document.getElementById('conditionTracker').innerHTML = `
                 <div class="w-full flex flex-col gap-2">
-                    <div class="bg-slate-900 border border-slate-800/80 py-1.5 px-4 rounded-xl text-sm font-mono text-cyan-300 inline-block mx-auto max-w-full tracking-wide shadow-inner">
+                    <div class="bg-slate-900 border border-slate-800/80 py-1.5 px-4 rounded-xl text-sm font-mono text-cyan-300 inline-block mx-auto max-w-full tracking-wide shadow-inner whitespace-nowrap overflow-x-auto">
                         ${escapeCharacters(activeStateFrame.expr)}
                     </div>
                     <div class="text-sm text-slate-400 font-medium leading-relaxed pt-1">${activeStateFrame.cond}</div>
