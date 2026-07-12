@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C-Logic AI Live Compiler Visualizer</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Pure Browser Cloud AI Layer (No Keys/No Proxy Servers Needed) -->
+    <script src="https://js.puter.com/v2/"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .code-font { font-family: 'Fira Code', monospace; }
+        .active-line { background-color: rgba(234, 179, 8, 0.2); border-left: 4px solid #eab308; }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col">
+
+    <!-- Header Navigation -->
+    <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50 px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <div class="bg-gradient-to-tr from-cyan-600 to-blue-600 p-2 rounded-xl text-white shadow-lg">
+                <i class="fa-solid fa-robot text-xl"></i>
+            </div>
+            <div>
+                <h1 class="text-xl font-bold tracking-tight bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">C-Logic AI Core</h1>
+                <p class="text-xs text-cyan-400 font-medium tracking-wide">Live Browser Cloud AI Interpreter Mode</p>
+            </div>
+        </div>
+        <div class="flex items-center gap-4 text-sm text-slate-400">
+            <span class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span> Cloud API Active</span>
+        </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Left Section: Question Input -->
+        <section class="lg:col-span-4 flex flex-col gap-5">
+            <div class="bg-slate-800/50 border border-slate-800 rounded-2xl p-5 shadow-xl flex flex-col gap-4">
+                <div class="flex items-center gap-2 text-cyan-400 font-semibold">
+                    <i class="fa-solid fa-terminal"></i>
+                    <h2>Mee Dynamic Question</h2>
+                </div>
+                <p class="text-[11px] text-slate-400 leading-normal">Ikkada complete dynamic ga ye question aina type cheyochu! Cloud AI browser frame context read chesi layout computation block logic process runtime render chesthundhi.</p>
+                <textarea id="questionInput" class="w-full h-46 bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm focus:outline-none focus:border-cyan-500 transition text-slate-200 resize-none" placeholder="Write a Program in C to Swap the values of two variables without using any extra variable..."></textarea>
+                
+                <button id="processBtn" onclick="askCloudNetworkAI()" class="w-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-medium py-3 rounded-xl transition shadow-lg flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> AI Analyze & Process Approach
+                </button>
+            </div>
+        </section>
+
+        <!-- Right Section: Theory & Simulation Area -->
+        <section id="outputSection" class="lg:col-span-8 hidden transition-all duration-300 flex flex-col gap-6">
+            
+            <!-- STAGE 1: Mind Mapping (Theory Framework Display) -->
+            <div class="bg-slate-800/40 border border-slate-800 rounded-2xl p-6 flex flex-col gap-5">
+                <div class="border-b border-slate-800 pb-3 flex items-center justify-between">
+                    <h2 class="text-lg font-bold text-slate-200 flex items-center gap-2">
+                        <i class="fa-solid fa-book-open text-amber-400"></i> Phase 1: Mind Mapping & Logic Approach
+                    </h2>
+                    <span class="text-xs bg-cyan-500/10 text-cyan-400 px-2.5 py-1 rounded-full font-medium border border-cyan-500/20">Realtime AI Analytics</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <!-- Easy Approach Theory -->
+                    <div class="bg-slate-950/50 border border-slate-800/80 rounded-xl p-4 flex flex-col gap-2">
+                        <div class="flex items-center gap-2 text-emerald-400 font-semibold text-sm">
+                            <i class="fa-solid fa-seedling"></i> Simple Logic Concept
+                        </div>
+                        <p id="theoryEasy" class="text-xs md:text-sm text-slate-300 leading-relaxed font-normal whitespace-pre-line"></p>
+                    </div>
+
+                    <!-- Optimized Approach Theory -->
+                    <div class="bg-slate-950/50 border border-slate-800/80 rounded-xl p-4 flex flex-col gap-2">
+                        <div class="flex items-center gap-2 text-cyan-400 font-semibold text-sm">
+                            <i class="fa-solid fa-bolt"></i> Optimized Logic Concept
+                        </div>
+                        <p id="theoryOpt" class="text-xs md:text-sm text-slate-300 leading-relaxed font-normal whitespace-pre-line"></p>
+                    </div>
+                </div>
+
+                <!-- Reveal Trigger Button -->
+                <div id="revealWrapper" class="pt-2 text-center">
+                    <button onclick="revealCodeSandbox()" class="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-bold px-6 py-3 rounded-xl transition shadow-lg inline-flex items-center gap-2 cursor-pointer text-sm">
+                        <i class="fa-solid fa-code"></i> Concept Clarified? Reveal C Code & Visualizer
+                    </button>
+                </div>
+            </div>
+
+            <!-- STAGE 2: Code Interactive Simulator Arena -->
+            <div id="codeSandboxArena" class="hidden flex flex-col gap-5 transition-all duration-300">
+                
+                <div class="bg-slate-800/60 border border-slate-800 p-1.5 rounded-xl flex gap-2">
+                    <button id="tabEasy" onclick="switchLogicMode('easy')" class="flex-1 py-2 text-xs md:text-sm font-semibold rounded-lg transition text-center cursor-pointer bg-blue-600 text-white shadow">
+                        Simple Code Architecture
+                    </button>
+                    <button id="tabOpt" onclick="switchLogicMode('opt')" class="flex-1 py-2 text-xs md:text-sm font-semibold rounded-lg transition text-center cursor-pointer text-slate-400 hover:text-slate-200">
+                        Optimized Code Architecture
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-5 items-stretch">
+                    <!-- Line Code Tracker -->
+                    <div class="md:col-span-7 bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden flex flex-col">
+                        <div class="bg-slate-900/60 px-4 py-2.5 border-b border-slate-800 flex justify-between items-center">
+                            <span class="text-xs text-slate-500 font-bold code-font">execution_engine.c</span>
+                        </div>
+                        <div id="codeContainer" class="p-4 code-font text-xs md:text-sm overflow-x-auto leading-6 text-slate-300 flex-1"></div>
+                        <div class="p-3 bg-slate-900/40 border-t border-slate-800/80 flex justify-between items-center">
+                            <button id="prevBtn" onclick="stepBackward()" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-medium cursor-pointer disabled:opacity-30">
+                                <i class="fa-solid fa-angle-left"></i> Previous
+                            </button>
+                            <span class="text-xs font-semibold text-slate-400 select-none">
+                                State: <span id="stepCounter" class="text-cyan-400">1</span> / <span id="totalSteps">0</span>
+                            </span>
+                            <button id="nextBtn" onclick="stepForward()" class="px-4 py-1 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold rounded-lg text-xs cursor-pointer disabled:opacity-30 flex items-center gap-1">
+                                Step Line <i class="fa-solid fa-angle-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Right Block Memory System Tracking -->
+                    <div class="md:col-span-5 flex flex-col gap-4">
+                        <div class="bg-slate-800/30 border border-slate-800/80 rounded-2xl p-4 flex flex-col gap-3 flex-1">
+                            <h4 class="text-[11px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1">
+                                <i class="fa-solid fa-address-card text-emerald-400"></i> RAM Registry Stack
+                            </h4>
+                            <div id="variableTracker" class="flex flex-col gap-2 justify-start"></div>
+                        </div>
+                        <div class="bg-slate-800/30 border border-slate-800/80 rounded-2xl p-4 flex flex-col gap-2">
+                            <h4 class="text-[11px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1">
+                                <i class="fa-solid fa-microchip text-purple-400"></i> Expression Processor
+                            </h4>
+                            <div id="conditionTracker" class="bg-slate-950/80 p-3 rounded-xl border border-slate-850 text-xs text-slate-300 min-h-[70px] flex items-center justify-center text-center"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t border-slate-800/60 py-3 text-center text-[11px] text-slate-600 font-medium">
+        C-Logic AI Sandbox Engine Architecture • 2026
+    </footer>
+
+    <script>
+        let aiGeneratedDataset = null;
+        let selectedMode = 'easy';
+        let simulationStep = 0;
+
+        async function askCloudNetworkAI() {
+            const queryText = document.getElementById('questionInput').value.trim();
+            if(!queryText) {
+                alert("Please enter a custom C program question prompt first!");
+                return;
+            }
+
+            const btn = document.getElementById('processBtn');
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Cloud AI Processing...`;
+
+            // INSTRUCTING GLOBAL GENERATION MATRIX RULES
+            const systemContextPrompt = `You are a C language compiler simulator. Analyze the user's question and output a strict JSON structure. Avoid any markdown code-block wraps like \`\`\`json. Output raw text parameters only.
+            Format structural schema:
+            {
+              "theoryEasy": "Simple conceptual breakdown explanation.",
+              "theoryOpt": "Optimized performance logic explanation.",
+              "easyCode": {
+                 "code": ["int a = 5;", "a = a + 1;"],
+                 "steps": [
+                    {"line": 0, "vars": {"a": "5"}, "cond": "Narration text string here."}
+                 ]
+              },
+              "optCode": {
+                 "code": ["int a = 5;"],
+                 "steps": [
+                    {"line": 0, "vars": {"a": "5"}, "cond": "Narration text string here."}
+                 ]
+              }
+            }
+            Ensure array 'line' pointers accurately match index offsets of code line rows array elements. User Question: ${queryText}`;
+
+            try {
+                // TRUE LOCAL FILES COMPATIBLE BROWSER AI GATEWAY 
+                const aiResult = await puter.ai.chat(systemContextPrompt, { model: 'google/gemini-3.5-flash' });
+                let cleanJsonStr = aiResult.toString().trim();
+
+                if (cleanJsonStr.includes("```json")) {
+                    cleanJsonStr = cleanJsonStr.split("```json")[1].split("```")[0];
+                } else if (cleanJsonStr.includes("```")) {
+                    cleanJsonStr = cleanJsonStr.split("```")[1].split("```")[0];
+                }
+
+                aiGeneratedDataset = JSON.parse(cleanJsonStr);
+
+                document.getElementById('theoryEasy').innerHTML = aiGeneratedDataset.theoryEasy;
+                document.getElementById('theoryOpt').innerHTML = aiGeneratedDataset.theoryOpt;
+
+                document.getElementById('outputSection').classList.remove('hidden');
+                document.getElementById('codeSandboxArena').classList.add('hidden');
+                document.getElementById('revealWrapper').classList.remove('hidden');
+                document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth' });
+
+            } catch (error) {
+                console.error("Cloud Node failure:", error);
+                alert("AI network execution latency error. Please click process query again!");
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles"></i> AI Analyze & Process Approach`;
+            }
+        }
+
+        function revealCodeSandbox() {
+            document.getElementById('revealWrapper').classList.add('hidden');
+            document.getElementById('codeSandboxArena').classList.remove('hidden');
+            selectedMode = 'easy';
+            renderCodeWorkspace();
+        }
+
+        function renderCodeWorkspace() {
+            const modeKey = selectedMode === 'easy' ? 'easyCode' : 'optCode';
+            const executionData = aiGeneratedDataset[modeKey];
+            
+            const codeContainer = document.getElementById('codeContainer');
+            codeContainer.innerHTML = '';
+            
+            executionData.code.forEach((line, index) => {
+                const row = document.createElement('div');
+                row.id = `code-line-${index}`;
+                row.className = 'px-3 py-0.5 transition-all duration-150 rounded flex gap-4';
+                row.innerHTML = `<span class="text-slate-600 w-5 select-none inline-block text-right">${index + 1}</span><span class="whitespace-pre">${escapeCharacters(line)}</span>`;
+                codeContainer.appendChild(row);
+            });
+
+            simulationStep = 0;
+            refreshSimulatorControls();
+        }
+
+        function switchLogicMode(mode) {
+            selectedMode = mode;
+            const tabEasy = document.getElementById('tabEasy');
+            const tabOpt = document.getElementById('tabOpt');
+
+            if(mode === 'easy') {
+                tabEasy.className = "flex-1 py-2 text-xs md:text-sm font-semibold rounded-lg transition text-center cursor-pointer bg-blue-600 text-white shadow";
+                tabOpt.className = "flex-1 py-2 text-xs md:text-sm font-semibold rounded-lg transition text-center cursor-pointer text-slate-400 hover:text-slate-200";
+            } else {
+                tabOpt.className = "flex-1 py-2 text-xs md:text-sm font-semibold rounded-lg transition text-center cursor-pointer bg-cyan-600 text-white shadow";
+                tabEasy.className = "flex-1 py-2 text-xs md:text-sm font-semibold rounded-lg transition text-center cursor-pointer text-slate-400 hover:text-slate-200";
+            }
+            renderCodeWorkspace();
+        }
+
+        function refreshSimulatorControls() {
+            const modeKey = selectedMode === 'easy' ? 'easyCode' : 'optCode';
+            const contextData = aiGeneratedDataset[modeKey];
+            const activeStepState = contextData.steps[simulationStep];
+
+            document.getElementById('stepCounter').innerText = simulationStep + 1;
+            document.getElementById('totalSteps').innerText = contextData.steps.length;
+
+            document.getElementById('prevBtn').disabled = simulationStep === 0;
+            document.getElementById('nextBtn').disabled = simulationStep === contextData.steps.length - 1;
+
+            contextData.code.forEach((_, index) => {
+                const element = document.getElementById(`code-line-${index}`);
+                if(element) element.classList.remove('active-line');
+            });
+
+            if(activeStepState && document.getElementById(`code-line-${activeStepState.line}`)) {
+                document.getElementById(`code-line-${activeStepState.line}`).classList.add('active-line');
+            }
+
+            const variableTracker = document.getElementById('variableTracker');
+            variableTracker.innerHTML = '';
+
+            if (activeStepState && activeStepState.vars) {
+                for(let name in activeStepState.vars) {
+                    const box = document.createElement('div');
+                    box.className = "bg-slate-950 border border-slate-800 rounded-xl p-2.5 flex justify-between items-center";
+                    box.innerHTML = `
+                        <div class="flex flex-col">
+                            <span class="text-[9px] font-bold text-slate-500 uppercase">Variable</span>
+                            <span class="code-font text-xs font-bold text-emerald-400">${name}</span>
+                        </div>
+                        <div class="bg-slate-900 border border-slate-700/80 px-3 py-1 rounded-lg text-xs code-font font-bold text-amber-400 min-w-[50px] text-center">
+                            ${activeStepState.vars[name]}
+                        </div>
+                    `;
+                    variableTracker.appendChild(box);
+                }
+            }
+
+            document.getElementById('conditionTracker').innerHTML = `
+                <div>
+                    <span class="text-[10px] font-bold text-slate-500 block uppercase tracking-wider mb-1">Step Simulation Feed</span>
+                    <span class="text-xs md:text-sm leading-relaxed">${activeStepState ? activeStepState.cond : 'Simulation Active'}</span>
+                </div>
+            `;
+        }
+
+        function stepForward() {
+            const modeKey = selectedMode === 'easy' ? 'easyCode' : 'optCode';
+            if(simulationStep < aiGeneratedDataset[modeKey].steps.length - 1) {
+                simulationStep++;
+                refreshSimulatorControls();
+            }
+        }
+
+        function stepBackward() {
+            if(simulationStep > 0) {
+                simulationStep--;
+                refreshSimulatorControls();
+            }
+        }
+
+        function escapeCharacters(string) {
+            return string.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+    </script>
+</body>
+</html>
